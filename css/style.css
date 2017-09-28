@@ -1,0 +1,48 @@
+body {
+	margin 0 auto;
+	padding: 0;
+}
+.contain {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: 300px;
+}
+.contain img {
+	width: 400px;
+	height: 400px;
+}
+.contain div {
+	border: 2px solid #ccc;
+	border-radius: 20px;
+	background: #ccc;
+
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+.contain div h2 {
+	text-align: center;
+}
+.contain div p {
+	font-size: 18px;
+	padding-left: 20px;
+}
+.catsList {
+	width: 260px;
+	height: 100%;
+	background: #cccaaa;
+	position: fixed;
+	border: 3px solid #ccc;
+	left: 10px;
+	top: 10px;
+}
+.catsList h2 {
+	text-align: center;
+}
+ul {
+	list-style: none;
+	font-size: 18px;
+	line-height: 30px;
+}
+ul li {
+	
+}
