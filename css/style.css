@@ -34,15 +34,12 @@ body {
 	border: 3px solid #ccc;
 	left: 10px;
 	top: 10px;
-}
-.catsList h2 {
 	text-align: center;
 }
-ul {
+.catsList ul {
 	list-style: none;
 	font-size: 18px;
 	line-height: 30px;
+	padding: 0;
 }
-ul li {
-	
-}
+

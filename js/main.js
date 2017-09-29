@@ -50,34 +50,79 @@ var model = {
 		}
 	]
 };
-var octopus = {};
+var octopus = {
+	init: function(){
+		model.currentCat = model.cats[0];
 
-var div = document.getElementById("contain");
-var ul = document.getElementById("catsListUl");
+		catListView.init();
+		catView.init();
+	},
+	getCats: function(){
+		return model.cats;
+	},
+	getCurrentCat: function(){
+		return model.currentCat;
+	},
+	setCurrentCat: function(cat){
+		model.currentCat = cat;
+
+		catView.render();
+	},
+	increamentCount: function(){
+		model.currentCat.clickCount++;
+
+		catView.render();
+	}
+};
+
 var catListView = {
 	//初始化展示页面
 	init: function(){
+		this.ul = document.getElementById("catsListUl");
 
-	}
+		this.render();
+	},
 	render: function(){
-		for(var i = 0; i < names.length; i++){
-			li = document.createElement("li");
+		var cats = octopus.getCats();
+		this.ul.innerHTML = "";
+		for(var i = 0; i < cats.length; i++){
+			var li = document.createElement("li");
 			var a = document.createElement("a");
+			var cat = cats[i];
 			a.href = "#";
-			a.textContent = names[i];
+			a.textContent = cat.name;
 			li.appendChild(a);
-			ul.appendChild(li);
+			this.ul.appendChild(li);
 			//通过闭包绑定列表点击事件
-			a.addEventListener("click", (function(cat, i){
+			a.addEventListener("click", (function(catCopy){
 				return function(){
-					octopus.listClick(cat, i);
+					octopus.setCurrentCat(catCopy);
 				};
-			})(names[i], i));
+			})(cat));
 		}
 	}
 };
-var catView = {};
+var catView = {
+	init: function(){
+		this.title = document.getElementById('title');
+		this.img = document.getElementById('catImage');
+		this.count = document.getElementById('clickTimes');
 
+		this.img.addEventListener("click", function(){
+			octopus.increamentCount();
+		});
+
+		this.render();
+	},
+	render: function(){
+		var currentCat = octopus.getCurrentCat();
+		console.log(currentCat);
+		this.title.textContent = currentCat.name;
+		this.img.src = currentCat.imgSrc;
+		this.count.textContent = currentCat.clickCount;
+	}
+};
+octopus.init();
 //MVO实现第一版
 // var data = {
 // 	name: ["壯壯", "小花", "果果", "小白", "小可愛", "露娜", "路西", "Candy", "Jack"],
