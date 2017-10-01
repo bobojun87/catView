@@ -6,47 +6,56 @@ var model = {
 		{
 			name: '壯壯',
 			clickCount: 0,
-			imgSrc: 'images/壯壯.jpg'
+			imgSrc: 'images/壯壯.jpg',
+			imgURL: 'www.baidu.com'
 		},
 		{
 			name: '小花',
 			clickCount: 0,
-			imgSrc: 'images/小花.jpg'
+			imgSrc: 'images/小花.jpg',
+			imgURL: 'www.baidu.com'
 		},
 		{
 			name: '果果',
 			clickCount: 0,
-			imgSrc: 'images/果果.jpg'
+			imgSrc: 'images/果果.jpg',
+			imgURL: 'www.baidu.com'
 		},
 		{
 			name: '小白',
 			clickCount: 0,
-			imgSrc: 'images/小白.jpg'
+			imgSrc: 'images/小白.jpg',
+			imgURL: 'www.baidu.com'
 		},
 		{
 			name: '小可愛',
 			clickCount: 0,
-			imgSrc: 'images/小可愛.jpg'
+			imgSrc: 'images/小可愛.jpg',
+			imgURL: 'www.baidu.com'
 		},
 		{
 			name: '露娜',
 			clickCount: 0,
-			imgSrc: 'images/露娜.jpg'
+			imgSrc: 'images/露娜.jpg',
+			imgURL: 'www.baidu.com'
 		},
 		{
 			name: '路西',
 			clickCount: 0,
-			imgSrc: 'images/路西.jpg'
+			imgSrc: 'images/路西.jpg',
+			imgURL: 'www.baidu.com'
 		},
 		{
 			name: 'Candy',
 			clickCount: 0,
-			imgSrc: 'images/Candy.jpg'
+			imgSrc: 'images/Candy.jpg',
+			imgURL: 'www.baidu.com'
 		},
 		{
 			name: 'Jack',
 			clickCount: 0,
-			imgSrc: 'images/Jack.jpg'
+			imgSrc: 'images/Jack.jpg',
+			imgURL: 'www.baidu.com'
 		}
 	]
 };
@@ -56,6 +65,7 @@ var octopus = {
 
 		catListView.init();
 		catView.init();
+		admin.init();
 	},
 	getCats: function(){
 		return model.cats;
@@ -67,6 +77,7 @@ var octopus = {
 		model.currentCat = cat;
 
 		catView.render();
+		admin.render();
 	},
 	increamentCount: function(){
 		model.currentCat.clickCount++;
@@ -116,11 +127,75 @@ var catView = {
 	},
 	render: function(){
 		var currentCat = octopus.getCurrentCat();
-		console.log(currentCat);
 		this.title.textContent = currentCat.name;
 		this.img.src = currentCat.imgSrc;
 		this.count.textContent = currentCat.clickCount;
+	},
+};
+
+var admin = {
+	init: function(){
+		this.admin = document.getElementById('admin');
+		this.adminButton = document.getElementById('admin-button');
+		this.adminButton.show = true;
+
+		this.adminEdit = document.getElementById('admin-edit');
+
+		this.catName = document.getElementById('catName');
+		this.catURL = document.getElementById('catURL');
+		this.catCount = document.getElementById('catCount');
+		this.submit = document.getElementById('submit');
+		this.cansle = document.getElementById('cansle');
+
+		this.adminButton.addEventListener("click", function(){
+			admin.adminButton.show = false;
+
+			admin.render();
+		});
+
+		this.render();
+	},
+	render: function(){
+		this.catName.value = "";
+		this.catURL.value = "";
+		this.catCount.value = "";
+
+		if (this.adminButton.show == true) {
+			this.admin.style.display = "block";
+			this.adminEdit.style.display = "none";
+		}else {
+			this.admin.style.display = "none";
+			this.adminEdit.style.display = "block";
+		}
+
+		this.adminButton.show = true;
+
+		this.submit.addEventListener("click", function(){
+			var catName = document.getElementById('catName').value;
+			var catURL = document.getElementById('catURL').value;
+			var catCount = document.getElementById('catCount').value;
+			if (catName == "" || catURL == "" || catCount == "") {
+				//为什么弹出两次??
+				//alert("所有的输入框不能为空");
+				return;
+			}
+
+			var currentCat = octopus.getCurrentCat();
+			currentCat.name = catName;
+			currentCat.imgURL = catURL;
+			currentCat.clickCount = catCount;
+
+			octopus.setCurrentCat(currentCat);
+
+			admin.render();
+		});
+
+		this.cansle.addEventListener("click", function(){
+
+			admin.render();
+		});
 	}
+	
 };
 octopus.init();
 //MVO实现第一版

@@ -42,4 +42,12 @@ body {
 	line-height: 30px;
 	padding: 0;
 }
-
+.admin {
+	text-align: center;
+}
+.admin input {
+	width: 80px;
+	height: 50px;
+	text-align: center;
+	font-size: 18px;
+}
